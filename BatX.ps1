@@ -1,13 +1,9 @@
+. "C:\Users\tgudl\Documents\PowerShell\Scripts\SetupX.ps1"
 function Bat-X {
-    $pathspath = "$($env:userprofile)\CommonPaths\CommonBatPaths.txt"
-    if (![System.IO.File]::Exists($pathspath)) {
-        'USERPROFILE\CommonPaths\CommonBatPaths.txt not found'
-        return
-    }
-    $paths = $(Get-Content $pathspath)
-    $choice = $args[0] ?? 1
-    if ($choice -gt $paths.Length -or $choice -lt 1) {
-        'invalid choice'
+    $paths = $null
+    $choice = $args[0]
+    if (!(Setup-X ([ref]$choice) ([ref]$paths) `
+        "CommonPaths\CommonBatPaths.txt")) {
         return
     }
     bat $paths[($choice - 1)]

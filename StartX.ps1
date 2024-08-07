@@ -6,7 +6,12 @@ function Start-X {
         return
     }
     $paths = $(Get-Content $pathspath)
-    $choice = $args[0] ?? 1
+    if ($null -eq $args[0]) {
+        $choice = 1
+    }
+    else {
+        $choice = $args[0]
+    }
     if ($choice -gt $paths.Length -or $choice -lt 1) {
         'invalid choice'
         return
